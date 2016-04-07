@@ -1,0 +1,35 @@
+{
+  "name": "kodiapi.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/KodiApi.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-loader": "^6.2.4",
+    "babel-polyfill": "^6.7.4",
+    "babel-preset-es2015": "^6.6.0",
+    "webpack": "^1.12.14"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production webpack --config=./build/webpack.config.js --minimize",
+    "dev": "NODE_ENV=development webpack --config=./build/webpack.config.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3x3ption/KodiApi.js.git"
+  },
+  "keywords": [
+    "kodi",
+    "api",
+    "json-rpr",
+    "json",
+    "rpc"
+  ],
+  "author": "Marvin Kuhn <marvin.kuhn92@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3x3ption/KodiApi.js/issues"
+  },
+  "homepage": "https://github.com/3x3ption/KodiApi.js#readme"
+}
