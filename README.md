@@ -22,7 +22,7 @@ Implemented:
 - [x] Player Api
 - [x] Playlist Api
 - [x] Gui Api
-- [ ] Input Api
+- [x] Input Api
 - [ ] JSONRPC Api
 - [ ] PVR Api
 - [ ] System Api
