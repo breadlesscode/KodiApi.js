@@ -6,6 +6,7 @@ require('./KodiAudioLibaryApi.js');
 require('./KodiPlayerApi.js');
 require('./KodiPlaylistApi.js');
 require('./KodiGuiApi.js');
+require('./KodiInputApi.js');
 
 function KodiApi(ip, port) {
     var self = this;
@@ -50,6 +51,9 @@ KodiApi.prototype.initiateApi = function(key, id) {
             this.apis[key] = new KodiAudioLibraryApi(this.connection);
             break;
         case 'gui':
+            this.apis[key] = new KodiGuiApi(this.connection);
+            break;
+        case 'input':
             this.apis[key] = new KodiGuiApi(this.connection);
             break;
         default:
