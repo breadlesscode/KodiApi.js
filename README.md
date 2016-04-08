@@ -21,7 +21,7 @@ Implemented:
 - [x] Files Api 
 - [x] Player Api
 - [x] Playlist Api
-- [ ] Gui Api
+- [x] Gui Api
 - [ ] Input Api
 - [ ] JSONRPC Api
 - [ ] PVR Api
