@@ -97,20 +97,21 @@
 	        case 'audiolibrary':
 	            this.apis[key] = new KodiAudioLibraryApi(this.connection);
 	            break;
+	        case 'videolibrary':
+	            this.apis[key] = new KodiVideoLibraryApi(this.connection);
+	            break;
 	        case 'gui':
 	            this.apis[key] = new KodiGuiApi(this.connection);
 	            break;
 	        case 'input':
 	            this.apis[key] = new KodiGuiApi(this.connection);
 	            break;
-	        case 'system':
-	            this.apis[key] = new KodiSystemApi(this.connection);
-	            break;
 	        default:
 	            console.log('Error: Api not found ' + key);
 	    }
 	}
 	global.KodiApi = KodiApi;
+	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
@@ -393,6 +394,7 @@
 	
 	
 	global.KodiAudioLibraryApi = KodiAudioLibraryApi;
+	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
@@ -652,33 +654,184 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	class KodiSystemApi {
+	class KodiVideoLibraryApi {
 	  constructor(connection) {
 	    this.connection = connection;
 	  }
 	
-	  ejectOpticalDrive() {
-	    return this.connection.cmd('System.EjectOpticalDrive');
+	  clean() {
+	    return this.connection.cmd('VideoLibrary.Clean');
 	  }
 	
-	  getProperties(properties) {
-	    return this.connection.cmd('System.GetProperties', {properties: properties});
+	  export() {
+	    return this.connection.cmd('VideoLibrary.Export');
 	  }
 	
-	  hibernate() {
-	    return this.connection.cmd('System.Hibernate');
+	  getEpisodeDetails(episodeid, properties) {
+	    return this.connection.cmd('VideoLibrary.GetEpisodeDetails', {
+	      episodeid: episodeid,
+	      properties: properties
+	    });
 	  }
 	
-	  reboot() {
-	    return this.connection.cmd('System.Reboot');
+	  getEpisodes(tvshowid = -1, season = -1, properties, limits, sort, filter) {
+	    return this.connection.cmd('VideoLibrary.getEpisodes', {
+	      tvshowid: tvshowid,
+	      season: season,
+	      properties: properties,
+	      limits: limits,
+	      sort: sort,
+	      filter: filter
+	    });
 	  }
 	
-	  shutdown() {
-	    return this.connection.cmd('System.Shutdown');
+	  getGenres(type, properties, limits, sort) {
+	    return this.connection.cmd('VideoLibrary.GetGenres', {
+	      type: type,
+	      properties: properties,
+	      limits: limits,
+	      sort: sort
+	    });
 	  }
-	  
-	  suspend() {
-	    return this.connection.cmd('System.Suspend');
+	
+	  getMovieDetails(movieid, properties) {
+	    return this.connection.cmd('VideoLibrary.GetMovieDetails', {
+	      movieid: movieid,
+	      properties: properties
+	    });
+	  }
+	
+	  getMovieSetDetails(setid, properties, movies) {
+	    return this.connection.cmd('VideoLibrary.GetMovieSetDetails', {
+	      setid: setid,
+	      properties: properties,
+	      movies: movies
+	    });
+	  }
+	
+	  getMovies(properties, limits, sort, filter) {
+	    return this.connection.cmd('VideoLibrary.GetMovies', {
+	      properties: properties,
+	      limits: limits,
+	      sort: sort,
+	      filter: filter
+	    });
+	  }
+	
+	  getMusicVideoDetails(musicvideoid, properties) {
+	    return this.connection.cmd('VideoLibrary.GetMusicVideoDetails', {
+	      musicvideoid: musicvideoid,
+	      properties: properties
+	    });
+	  }
+	
+	  getMusicVideos(properties, limits, sort, filter) {
+	    return this.connection.cmd('VideoLibrary.GetMusicVideos', {
+	      properties: properties,
+	      limits: limits,
+	      sort: sort,
+	      filter: filter
+	    });
+	  }
+	
+	  getRecentlyAddedEpisodes(properties, limits, sort) {
+	    return this.connection.cmd('VideoLibrary.GetRecentlyAddedEpisodes', {
+	      properties: properties,
+	      limits: limits,
+	      sort: sort
+	    });
+	  }
+	
+	  getRecentlyAddedMovies(properties, limits, sort) {
+	    return this.connection.cmd('VideoLibrary.GetRecentlyAddedMovies', {
+	      properties: properties,
+	      limits: limits,
+	      sort: sort
+	    });
+	  }
+	
+	  getRecentlyAddedMusicVideos(properties, limits, sort) {
+	    return this.connection.cmd('VideoLibrary.getRecentlyAddedMusicVideos', {
+	      properties: properties,
+	      limits: limits,
+	      sort: sort
+	    });
+	  }
+	
+	  getTVShowDetails(tvshowid, properties) {
+	    return this.connection.cmd('VideoLibrary.GetTVShowDetails', {
+	      tvshowid: tvshowid,
+	      properties: properties
+	    });
+	  }
+	
+	  getTVShows(properties, limits, sort, filter) {
+	    return this.connection.cmd('VideoLibrary.GetTVShows', {
+	      properties: properties,
+	      limits: limits,
+	      sort: sort,
+	      filter: filter
+	    });
+	  }
+	
+	  removeEpisode(episodeid) {
+	    return this.connection.cmd('VideoLibrary.RemoveEpisode', {
+	      episodeid: episodeid
+	    });
+	  }
+	
+	  removeMovie(movieid) {
+	    return this.connection.cmd('VideoLibrary.RemoveMovie', {
+	      movieid: movieid
+	    });
+	  }
+	
+	  removeMusicVideo(musicvideoid) {
+	    return this.connection.cmd('VideoLibrary.RemoveMusicVideo', {
+	      musicvideoid: musicvideoid
+	    });
+	  }
+	
+	  removeTVShow(tvshowid) {
+	    return this.connection.cmd('VideoLibrary.RemoveTVShow', {
+	      tvshowid: tvshowid
+	    });
+	  }
+	
+	  scan() {
+	    return this.connection.cmd('VideoLibrary.Scan');
+	  }
+	
+	  setEpisodeDetails(episodeid, properties) {
+	    var params = Object.assign(properties, {
+	      episodeid: episodeid
+	    });
+	
+	    return this.connection.cmd('VideoLibrary.SetEpisodeDetails', params);
+	  }
+	
+	  setMovieDetails(movieid, properties) {
+	    var params = Object.assign(properties, {
+	      movieid: movieid
+	    });
+	
+	    return this.connection.cmd('VideoLibrary.SetMovieDetails', params);
+	  }
+	
+	  setMusicVideoDetails(musicvideoid, properties) {
+	    var params = Object.assign(properties, {
+	      musicvideoid: musicvideoid
+	    });
+	
+	    return this.connection.cmd('VideoLibrary.SetMusicVideoDetails', params);
+	  }
+	
+	  setTVShowDetails(tvshowid, properties) {
+	    var params = Object.assign(properties, {
+	      tvshowid: tvshowid
+	    });
+	
+	    return this.connection.cmd('VideoLibrary.SetTVShowDetails', params);
 	  }
 	}
 
