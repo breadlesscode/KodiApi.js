@@ -2,7 +2,7 @@ require('./JsonRpc.js');
 require('./KodiApiConnection.js');
 require('./KodiAddonApi.js');
 require('./KodiApplicationApi.js');
-require('./KodiAudioLibaryApi.js');
+require('./KodiAudioLibraryApi.js');
 require('./KodiPlayerApi.js');
 require('./KodiPlaylistApi.js');
 require('./KodiGuiApi.js');
