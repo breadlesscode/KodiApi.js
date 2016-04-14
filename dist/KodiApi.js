@@ -51,6 +51,9 @@
 	__webpack_require__(5);
 	__webpack_require__(6);
 	__webpack_require__(7);
+	__webpack_require__(8);
+	__webpack_require__(9);
+	__webpack_require__(10);
 	
 	function KodiApi(ip, port) {
 	    var self = this;
@@ -93,6 +96,15 @@
 	            break;
 	        case 'audiolibrary':
 	            this.apis[key] = new KodiAudioLibraryApi(this.connection);
+	            break;
+	        case 'gui':
+	            this.apis[key] = new KodiGuiApi(this.connection);
+	            break;
+	        case 'input':
+	            this.apis[key] = new KodiGuiApi(this.connection);
+	            break;
+	        case 'system':
+	            this.apis[key] = new KodiSystemApi(this.connection);
 	            break;
 	        default:
 	            console.log('Error: Api not found ' + key);
@@ -530,6 +542,145 @@
 	
 	global.KodiPlaylistApi = KodiPlaylistApi;
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	class KodiGuiApi {
+	  constructor(connection) {
+	    this.connection = connection;
+	  }
+	
+	  activateWindow(window, parameters) {
+	    return this.connection.cmd('GUI.ActivateWindow', {
+	      window: window,
+	      parameters: parameters
+	    });
+	  }
+	
+	  getProperties(properties) {
+	    return this.connection.cmd('GUI.GetProperties', {
+	      properties: properties
+	    });
+	  }
+	
+	  setFullscreen(toggle = 'toggle') {
+	    return this.connection.cmd('GUI.SetFullscreen', { toggle: toggle });
+	  }
+	
+	  showNotification(title, message, image, displaytime = 5000) {
+	    return this.connection.cmd('GUI.ShowNotification', {
+	      title: title,
+	      message: message, 
+	      image: image,
+	      displaytime: displaytime
+	    })
+	  }
+	}
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	class KodiInputApi {
+	  constructor(connection) {
+	    this.connection = connection;
+	  }
+	
+	  back() {
+	    return this.connection.cmd('Input.Back');
+	  }
+	
+	  contextMenu() {
+	    return this.connection.cmd('Input.ContextMenu');
+	  }
+	
+	  up() {
+	    return this.connection.cmd('Input.Up');
+	  }
+	
+	  down() {
+	    return this.connection.cmd('Input.Down');
+	  }
+	
+	  executeAction() {
+	    return this.connection.cmd('Input.ExecuteAction');
+	  }
+	
+	  executeAction() {
+	    return this.connection.cmd('Input.ExecuteAction');
+	  }
+	
+	  home() {
+	    return this.connection.cmd('Input.Home');
+	  }
+	
+	  info() {
+	    return this.connection.cmd('Input.Info');
+	  }
+	
+	  left() {
+	    return this.connection.cmd('Input.Left');
+	  }
+	
+	  right() {
+	    return this.connection.cmd('Input.Right');
+	  }
+	
+	  select() {
+	    return this.connection.cmd('Input.Select');
+	  }
+	
+	  sendText(text, done = true) {
+	    return this.connection.cmd('Input.SendText', {
+	      text: text,
+	      done: done
+	    });
+	  }
+	
+	  showCodec() {
+	    return this.connection.cmd('Input.ShowCodec');
+	  }
+	
+	  showOSD() {
+	    return this.connection.cmd('Input.ShowOSD');
+	  }
+	}
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	class KodiSystemApi {
+	  constructor(connection) {
+	    this.connection = connection;
+	  }
+	
+	  ejectOpticalDrive() {
+	    return this.connection.cmd('System.EjectOpticalDrive');
+	  }
+	
+	  getProperties(properties) {
+	    return this.connection.cmd('System.GetProperties', {properties: properties});
+	  }
+	
+	  hibernate() {
+	    return this.connection.cmd('System.Hibernate');
+	  }
+	
+	  reboot() {
+	    return this.connection.cmd('System.Reboot');
+	  }
+	
+	  shutdown() {
+	    return this.connection.cmd('System.Shutdown');
+	  }
+	  
+	  suspend() {
+	    return this.connection.cmd('System.Suspend');
+	  }
+	}
 
 /***/ }
 /******/ ]);
