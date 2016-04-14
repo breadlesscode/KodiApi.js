@@ -12,8 +12,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production webpack --config=./build/webpack.config.js --minimize",
-    "dev": "NODE_ENV=development webpack --config=./build/webpack.config.js --watch"
+    "build": "NODE_ENV=production webpack ",
+    "dev": "NODE_ENV=development webpack --watch"
   },
   "repository": {
     "type": "git",
