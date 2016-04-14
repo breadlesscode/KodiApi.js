@@ -7,6 +7,7 @@ require('./KodiPlayerApi.js');
 require('./KodiPlaylistApi.js');
 require('./KodiGuiApi.js');
 require('./KodiInputApi.js');
+require('./KodiSystemApi.js');
 require('./KodiVideoLibraryApi.js');
 
 function KodiApi(ip, port) {
@@ -59,6 +60,9 @@ KodiApi.prototype.initiateApi = function(key, id) {
             break;
         case 'input':
             this.apis[key] = new KodiGuiApi(this.connection);
+            break;
+        case 'system':
+            this.apis[key] = new KodiSystemApi(this.connection);
             break;
         default:
             console.log('Error: Api not found ' + key);
