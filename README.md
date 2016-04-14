@@ -25,6 +25,6 @@ Implemented:
 - [x] Input Api
 - [ ] JSONRPC Api
 - [x] PVR Api
-- [ ] System Api
+- [x] System Api
 - [ ] VideoLibrary Api
 - [ ] Kodi Api
