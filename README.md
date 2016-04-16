@@ -19,3 +19,6 @@ document.addEventListener('Player.OnPlay', function(event) {
     console.log(event.detail.params.data.item);
 });
 ```
+
+## License
+This project is licensed under the (MIT license)[https://github.com/breadlesscode/KodiApi.js/blob/master/LICENSE]. See License File for more information.
