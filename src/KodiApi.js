@@ -40,7 +40,6 @@ class KodiApi {
   }
 
   initiateApi(key, id) {
-    console.log(this.apis);
     switch(key) {
       case 'addon':
         this.apis[key][id] = new KodiAddonApi(this.connection, id);
