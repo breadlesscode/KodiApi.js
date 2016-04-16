@@ -6,25 +6,16 @@ It's a simple wrapper for the Kodi JSON-RPC Api. For more informations visit: ht
 
 ## Usage/Examble
 ```javascript
-    var api = new KodiApi('192.168.178.150', '9090');
-    var applicationApi = api.get('application');
+var api = new KodiApi('localhost', '9090');
 
-    applicationApi.setMute(); // for toggeling mute
-    applicationApi.setMute(true); // for muting 
+api('application').setMute(); // for toggeling mute
+api('application').setMute(true); // for muting
+
+api('audiolibrary').getArtists().then(function(data) {
+    console.log(data.result.artists);
+});
+// listen on rpc notifications
+document.addEventListener('Player.OnPlay', function(event) {
+    console.log(event.detail.params.data.item);
+});
 ```
-
-## Status
-Implemented:
-- [x] Addon Api
-- [x] Application Api
-- [x] AudioLibrary Api
-- [x] Files Api 
-- [x] Player Api
-- [x] Playlist Api
-- [x] Gui Api
-- [x] Input Api
-- [ ] JSONRPC Api
-- [x] PVR Api
-- [x] System Api
-- [x] VideoLibrary Api
-- [ ] Kodi Api
