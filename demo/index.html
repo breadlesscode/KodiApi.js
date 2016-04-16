@@ -87,7 +87,8 @@
             // &#x1F507; 🔇
             // &#x1f509; 🔉
             var $ele = document.getElementById('mute');
-            if($ele.innerHtml === '🔇')
+
+            if($ele.textContent === '🔇')
                 $ele.textContent = '🔉';
             else
                 $ele.textContent = '🔇';
@@ -102,41 +103,41 @@
             else
                 pp.textContent =  '⏸'; // &#x23f8;
         };
-        var api = new KodiApi('192.168.178.150', '9090');
-        api.get('application').getProperties(['volume', 'muted']).then(function(data) {
+        var api = new KodiApi('localhost', '9090');
+        api('application').getProperties(['volume', 'muted']).then(function(data) {
            if(data.result.muted)
                 toggleMute();
-        });
-        document.addEventListener('click', function() {
-            api.get('application').setMute();
-            toggleMute();
         });
         document.addEventListener('Player.OnPlay', function(event) {
             setTrack(event.detail.params.data.item.title);
         });
+        document.getElementById('mute').addEventListener('click', function() {
+            api('application').setMute();
+            toggleMute();
+        });
         document.getElementById('play-pause').addEventListener('click', function(event) {
-            api.get('player', 0).playPause();
+            api('player', 0).playPause();
             togglePlayPause();
         });
         document.getElementById('previous').addEventListener('click', function(event) {
-            api.get('player', 0).previous();
+            api('player', 0).previous();
         });
         document.getElementById('next').addEventListener('click', function(event) {
-            api.get('player', 0).next();
+            api('player', 0).next();
         });
-        api.get('audiolibrary').getAlbums().then(function(data) {
+        api('audiolibrary').getAlbums().then(function(data) {
             if(data.result.albums) {
                 let str = 'Albums: ' + data.result.albums.length + ' ' + " -- ";
                 document.getElementById('content').textContent = document.getElementById('content').textContent + str;
             }
         });
-        api.get('audiolibrary').getArtists().then(function(data) {
+        api('audiolibrary').getArtists().then(function(data) {
             if(data.result.artists) {
                 let str = 'Artists: ' + data.result.artists.length + ' ' + " -- ";
                 document.getElementById('content').textContent = document.getElementById('content').textContent + str;
             }
         });
-        api.get('audiolibrary').getGenres().then(function(data) {
+        api('audiolibrary').getGenres().then(function(data) {
             if(data.result.genres) {
                 let str = 'Genres: ' + data.result.genres.length + ' ' + "";
                 document.getElementById('content').textContent = document.getElementById('content').textContent + str;
