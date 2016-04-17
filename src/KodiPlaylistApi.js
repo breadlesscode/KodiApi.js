@@ -59,4 +59,4 @@ class KodiPlaylistApi {
   }
 }
 
-global.KodiPlaylistApi = KodiPlaylistApi;
+module.exports = KodiPlaylistApi;

@@ -27,3 +27,5 @@ class KodiSystemApi {
     return this.connection.cmd('System.Suspend');
   }
 }
+
+module.exports = KodiSystemApi;

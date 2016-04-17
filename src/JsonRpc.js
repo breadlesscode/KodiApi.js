@@ -1,4 +1,4 @@
-class JsonRPC {
+class JsonRpc {
   constructor(url) {
     this.url = url;
     this.socket = new WebSocket(url);
@@ -67,4 +67,4 @@ class JsonRPC {
   }
 }
 
-global.JsonRPC = JsonRPC;
+module.exports = JsonRpc;

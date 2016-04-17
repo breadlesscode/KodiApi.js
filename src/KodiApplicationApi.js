@@ -19,4 +19,4 @@ class KodiApplicationApi {
   }
 }
 
-global.KodiApplicationApi = KodiApplicationApi;
+module.exports = KodiApplicationApi;

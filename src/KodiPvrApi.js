@@ -48,4 +48,6 @@ class KodiPvrApi {
   scan() {
     return this.connection.cmd('PVR.Scan');
   }
-}
+
+
+module.exports = KodiPvrApi;

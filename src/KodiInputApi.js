@@ -62,3 +62,5 @@ class KodiInputApi {
     return this.connection.cmd('Input.ShowOSD');
   }
 }
+
+module.exports = KodiInputApi;

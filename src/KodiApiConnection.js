@@ -1,5 +1,6 @@
-/** @preserve JsonRPC */
-class KodiApiConnection extends JsonRPC {
+import JsonRpc from './JsonRpc.js'
+
+class KodiApiConnection extends JsonRpc {
   constructor(host, port) {
     super('ws://' + host + ':' + port + '/jsonrpc');
 
@@ -18,4 +19,4 @@ class KodiApiConnection extends JsonRPC {
 
 }
 
-global.KodiApiConnection = KodiApiConnection;
+module.exports = KodiApiConnection;

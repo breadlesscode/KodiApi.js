@@ -178,3 +178,5 @@ class KodiVideoLibraryApi {
     return this.connection.cmd('VideoLibrary.SetTVShowDetails', params);
   }
 }
+
+module.exports = KodiVideoLibraryApi;

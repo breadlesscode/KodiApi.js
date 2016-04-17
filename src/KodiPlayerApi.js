@@ -71,4 +71,4 @@ class KodiPlayerApi {
   }
 }
 
-global.KodiPlayerApi = KodiPlayerApi;
+module.exports = KodiPlayerApi;

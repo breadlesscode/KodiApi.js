@@ -36,3 +36,5 @@ class KodiFilesApi {
     return this.connection.cmd('Files.PrepareDownload', {path: path});
   }
 }
+
+module.exports = KodiFilesApi;

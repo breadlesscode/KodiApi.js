@@ -29,3 +29,5 @@ class KodiGuiApi {
     })
   }
 }
+
+module.exports = KodiGuiApi;

@@ -22,4 +22,4 @@ class KodiAddonApi {
   }
 }
 
-global.KodiAddonApi = KodiAddonApi;
+module.exports = KodiAddonApi;

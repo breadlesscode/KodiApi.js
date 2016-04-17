@@ -1,14 +1,13 @@
-require('./JsonRpc.js');
-require('./KodiApiConnection.js');
-require('./KodiAddonApi.js');
-require('./KodiApplicationApi.js');
-require('./KodiAudioLibraryApi.js');
-require('./KodiPlayerApi.js');
-require('./KodiPlaylistApi.js');
-require('./KodiGuiApi.js');
-require('./KodiInputApi.js');
-require('./KodiSystemApi.js');
-require('./KodiVideoLibraryApi.js');
+import KodiAddonApi from './KodiAddonApi.js'
+import KodiApiConnection from './KodiApiConnection.js'
+import KodiApplicationApi from './KodiApplicationApi.js'
+import KodiAudioLibraryApi from './KodiAudioLibraryApi.js'
+import KodiGuiApi from './KodiGuiApi.js'
+import KodiInputApi from './KodiInputApi.js'
+import KodiPlayerApi from './KodiPlayerApi.js'
+import KodiPlaylistApi from './KodiPlaylistApi.js'
+import KodiSystemApi from './KodiSystemApi.js'
+import KodiVideoLibraryApi from './KodiVideoLibraryApi.js'
 
 class KodiApi {
   constructor(host, port) {

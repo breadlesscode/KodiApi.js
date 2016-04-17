@@ -110,5 +110,4 @@ class KodiAudioLibraryApi {
   }
 }
 
-
-global.KodiAudioLibraryApi = KodiAudioLibraryApi;
+module.exports = KodiAudioLibraryApi;
