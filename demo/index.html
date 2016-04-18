@@ -3,69 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo KodiApi.js</title>
-    <style type="text/css">
-    body, html {
-        height: 100%;
-        padding: 0; margin: 0;
-    }
-    body {
-        display: flex;
-        flex-flow: column;
-        font-family: sans-serif;
-        align-items: stretch;
-    }
-    .bottom {
-        display: flex;
-        flex-flow: row;
-        justify-content: space-around;
-        padding: 1px;
-    }
-    .content {
-        padding: 12px;
-        flex: 1;
-    }
-    .player {
-        display: inline-block;
-        border-radius: 6px;
-        background: #009688;
-        font-size: 2em;
-        color: #eee;
-        margin: 12px;
-    }
-    .player.full {
-        flex: 1;
-    }
-    .player ul {
-        list-style-type: none;
-        margin: 0; padding: 0;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-around;
-    }
-    .player li a {
-        flex: 1;
-        display: block;
-        color: #eee;
-        text-decoration: none;
-        font-size: 64px;
-        width: 72px;
-        height: 72px;
-        text-align: center;
-    }
-    .player li a:hover {
-        color: #aaa;
-        text-decoration: none;
-    }
-    #mute {
-        line-height: 1.2em;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="demo.css">
 </head>
 <body>
     <div class="content" id="content"></div>
     <div class="bottom">
     <div class="player full">
-        <span id="current-track">Loading...</span>
+        <span id="current-track"></span>
     </div>
     <div class="player">
         <ul>
@@ -81,68 +25,65 @@
         </ul>
     </div>
     </div>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../dist/KodiApi.js"></script>
     <script type="text/javascript">
-        var toggleMute = function() {
-            // &#x1F507; 🔇
-            // &#x1f509; 🔉
-            var $ele = document.getElementById('mute');
+        (function($) {
+            function setCurrentTrack(str) {
+                $('#current-track').text(str);
+            }
 
-            if($ele.textContent === '🔇')
-                $ele.textContent = '🔉';
-            else
-                $ele.textContent = '🔇';
-        };
-        var setTrack = function(str) {
-            document.getElementById('current-track').textContent = str;
-        };
-        var togglePlayPause = function() {
-            var pp = document.getElementById('play-pause');
-            if(pp.textContent == '⏸')
-                pp.textContent = '⏴'; // &#x23f4
-            else
-                pp.textContent =  '⏸'; // &#x23f8;
-        };
-        var api = new KodiApi('localhost', '9090');
-        api('application').getProperties(['volume', 'muted']).then(function(data) {
-           if(data.result.muted)
+            function toggleMute() {
+                var text = $('#mute').text();
+                $('#mute').text(text == '🔉' ? '🔇' : '🔉');
+            }
+
+            function togglePlayPause() {
+                var text = $('#play-pause').text();
+                $('#play-pause').text(text == '⏴' ? '⏸' : '⏴');
+            }
+
+            var api = new KodiApi('localhost', '9090');
+            var $document = $(document);
+
+            api(function(data) {
+                $document.trigger(data.method, [data]);
+            });
+
+            api('application').getProperties(['volume', 'muted']).then(function(data) {
+                if(data.result.muted)
+                    toggleMute();
+            });
+
+            api('player', 0).getCurrentItem().then(function(data) {
+                if(data.result)
+                    setCurrentTrack(data.result.item.label);
+            });
+
+            $document.on('Player.OnPlay', function(event, data) {
+                if(data.params.data.item.type == 'song')
+                    api('audiolibrary').getSongDetails(data.params.data.item.id).then(function(data) {
+                        setCurrentTrack(data.result.songdetails.label);
+                    });
+
+                setCurrentTrack('Loading...');
+            });
+
+            $('#mute').on('click', function() {
+                api('application').setMute();
                 toggleMute();
-        });
-        document.addEventListener('Player.OnPlay', function(event) {
-            setTrack(event.detail.params.data.item.title);
-        });
-        document.getElementById('mute').addEventListener('click', function() {
-            api('application').setMute();
-            toggleMute();
-        });
-        document.getElementById('play-pause').addEventListener('click', function(event) {
-            api('player', 0).playPause();
-            togglePlayPause();
-        });
-        document.getElementById('previous').addEventListener('click', function(event) {
-            api('player', 0).previous();
-        });
-        document.getElementById('next').addEventListener('click', function(event) {
-            api('player', 0).next();
-        });
-        api('audiolibrary').getAlbums().then(function(data) {
-            if(data.result.albums) {
-                let str = 'Albums: ' + data.result.albums.length + ' ' + " -- ";
-                document.getElementById('content').textContent = document.getElementById('content').textContent + str;
-            }
-        });
-        api('audiolibrary').getArtists().then(function(data) {
-            if(data.result.artists) {
-                let str = 'Artists: ' + data.result.artists.length + ' ' + " -- ";
-                document.getElementById('content').textContent = document.getElementById('content').textContent + str;
-            }
-        });
-        api('audiolibrary').getGenres().then(function(data) {
-            if(data.result.genres) {
-                let str = 'Genres: ' + data.result.genres.length + ' ' + "";
-                document.getElementById('content').textContent = document.getElementById('content').textContent + str;
-            }
-        });
+            });
+            $('#play-pause').on('click', function(event) {
+                api('player', 0).playPause();
+                togglePlayPause();
+            });
+            $('#previous').on('click', function(event) {
+                api('player', 0).previous();
+            });
+            $('#next').on('click', function(event) {
+                api('player', 0).next();
+            });
+        })(jQuery);
     </script>
 </body>
 </html>

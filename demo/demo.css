@@ -1,0 +1,59 @@
+
+body, html {
+    height: 100%;
+    padding: 0; margin: 0;
+}
+body {
+    display: flex;
+    flex-flow: column;
+    font-family: sans-serif;
+    align-items: stretch;
+}
+.bottom {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    padding: 1px;
+}
+.content {
+    padding: 12px;
+    flex: 1;
+}
+.player {
+    display: inline-block;
+    border-radius: 6px;
+    background: #009688;
+    font-size: 2em;
+    color: #eee;
+    margin: 12px;
+}
+.player.full {
+    flex: 1;
+    display: flex;
+      align-items: center;
+      justify-content: center;
+}
+.player ul {
+    list-style-type: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+.player li a {
+    flex: 1;
+    display: block;
+    color: #eee;
+    text-decoration: none;
+    font-size: 64px;
+    width: 72px;
+    height: 72px;
+    text-align: center;
+}
+.player li a:hover {
+    color: #aaa;
+    text-decoration: none;
+}
+#mute {
+    line-height: 1.2em;
+}
