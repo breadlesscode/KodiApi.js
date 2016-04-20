@@ -16,7 +16,7 @@ class KodiApi {
     this.connection = new KodiApiConnection(host, port);
     this.apis = {'playlist': [], 'player': [], 'addon': []};
     
-    return function getter(key, id) {
+    function getter(key, id) {
       if(typeof key === "function") {
         self.connection.onNotification = key;
         return;
@@ -32,9 +32,12 @@ class KodiApi {
 
       return self.apis[key];
     }
+
     getter.onNotification = function(cb) {
-      self.connection.onNotification = key;
+      self.connection.onNotification = cb;
     }
+
+    return getter;
   }
 
   isApiInitiated(key, id) {
