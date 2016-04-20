@@ -18,6 +18,10 @@ api('audiolibrary').getArtists().then(function(data) {
 document.addEventListener('Player.OnPlay', function(event) {
     console.log(event.detail.params.data.item);
 });
+// change rpc notification callback (deafult throws JavaScript CustomEvents)
+api.onNotification(function(data) {
+    console.log(data);
+});
 ```
 
 ## License
