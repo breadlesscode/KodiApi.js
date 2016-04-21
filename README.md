@@ -25,5 +25,7 @@ api.onNotification(function(data) {
 ```
 ## Todo
 - [ ] write small wiki
+
+
 ## License
 This project is licensed under the [MIT license](https://github.com/breadlesscode/KodiApi.js/blob/master/LICENSE). See License File for more information.
