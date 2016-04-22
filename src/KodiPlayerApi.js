@@ -38,10 +38,10 @@ class KodiPlayerApi {
     return this.connection.cmd('Player.SetAudioStream', {"playerid": this.playerId, "stream": stream});
   }
   next() {
-    return this.setAudioStream('next');
+    return this.goTo('next');
   }
   previous() {
-    return this.setAudioStream('previous');
+    return this.goTo('previous');
   }
   setPartyMode(partymode) {
     return this.connection.cmd('Player.SetPartyMode', {"playerid": this.playerId, "partymode": partymode});

@@ -101,7 +101,12 @@
 	    this.connection = new _KodiApiConnection2.default(host, port);
 	    this.apis = { 'playlist': [], 'player': [], 'addon': [] };
 	
-	    return function (key, id) {
+	    function getter(key, id) {
+	      if (typeof key === "function") {
+	        self.connection.onNotification = key;
+	        return;
+	      }
+	
 	      key = key.toLowerCase();
 	
 	      if (!self.isApiInitiated(key, id)) self.initiateApi(key, id);
@@ -109,7 +114,13 @@
 	      if (id != undefined) return self.apis[key][id];
 	
 	      return self.apis[key];
+	    }
+	
+	    getter.onNotification = function (cb) {
+	      self.connection.onNotification = cb;
 	    };
+	
+	    return getter;
 	  }
 	
 	  _createClass(KodiApi, [{
@@ -819,12 +830,12 @@
 	  }, {
 	    key: "next",
 	    value: function next() {
-	      return this.setAudioStream('next');
+	      return this.goTo('next');
 	    }
 	  }, {
 	    key: "previous",
 	    value: function previous() {
-	      return this.setAudioStream('previous');
+	      return this.goTo('previous');
 	    }
 	  }, {
 	    key: "setPartyMode",
