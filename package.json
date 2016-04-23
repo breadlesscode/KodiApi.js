@@ -26,7 +26,7 @@
     "json",
     "rpc"
   ],
-  "author": "Marvin Kuhn <marvin.kuhn92@gmail.com>",
+  "author": "Marvin Kuhn",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/breadlesscode/KodiApi.js/issues"
