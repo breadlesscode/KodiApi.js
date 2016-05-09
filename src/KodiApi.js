@@ -79,7 +79,7 @@ class KodiApi {
         this.apis[key] = new KodiSystemApi(this.connection);
         break;
       default:
-        console.log('Error: Api not found ' + key);
+        throw new Error('Error: Api not found ' + key);
     }
   }
 
